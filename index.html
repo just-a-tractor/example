@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Практическое задание №1</title>
+</head>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      background-color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      user-select: none;
+    }
+    .calculate {
+      width: 320px;
+      background-color: rgba(235, 2, 2, .8);
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, .7);
+      border-radius: 5px;
+
+    }
+    .calculate input {
+      width: 100%;
+      cursor: default;
+      padding: 0 10px;
+    }
+    .calculate input:disabled {
+      color: black;
+    }
+    .row {
+      display: flex;
+
+    }
+    .row > * {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 30px;
+      margin: 5px;
+      background-color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+  </style>
+
+<body>
+  <div class="calculate">
+    <div class="row">
+      <input type="text" class="calculate_field" disabled>
+    </div>
+    <div class="row">
+      <span>AC</span>
+      <span>/</span>
+    </div>
+    <div class="row">
+      <span>7</span>
+      <span>8</span>
+      <span>9</span>
+      <span>*</span>
+    </div>
+    <div class="row">
+      <span>4</span>
+      <span>5</span>
+      <span>6</span>
+      <span>-</span>
+    </div>
+    <div class="row">
+      <span>1</span>
+      <span>2</span>
+      <span>3</span>
+      <span>+</span>
+    </div>
+    <div class="row">
+      <span>0</span>
+      <span>.</span>
+      <span>=</span>
+    </div>
+  </div>
+
+  <script>
+    const 
+      elements = document.querySelectorAll('.row span'), // *
+      input    = document.querySelector('.calculate_field') //*
+
+    elements.forEach(element => {
+      element.addEventListener('click', () => {
+
+        switch (element.innerHTML) {
+          case 'AC':
+            input.value = ''
+            break
+
+          case '=':
+            if (input.value.slice(-1) === ' ')  input.value = input.value.slice(0, -3)
+
+            input.value = eval(input.value)
+            break
+
+          default:
+            if (!(+input.value.slice(-1) >= 0) && !(+element.innerHTML >= 0)) return //*
+
+            if (isNaN(+element.innerHTML)) { // *
+              input.value += ` ${element.innerHTML} `
+              break
+            }
+
+            input.value += element.innerHTML
+            break
+        }
+
+      })
+
+    })
+  </script>
+</body>
+</html>
